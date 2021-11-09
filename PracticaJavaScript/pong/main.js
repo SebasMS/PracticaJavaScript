@@ -26,14 +26,19 @@
         this.board = board;
         this.board.bars.push(this);
         this.kind = "rectangle";
+        this.speed = 10;
     }
 
     self.Bar.prototype = {
         down: function(){
+            this.y += this.speed;
 
         },
         up: function(){
-
+            this.y -= this.speed;
+        },
+        toString: function(){
+            return "x: " + this.x + " y: " + this.y;
         }
     }
 })();
@@ -68,7 +73,17 @@
     }
 })();
 
-window.addEventListener("load", main);
+document.addEventListener("keydown", function(event){
+    if(event.keyCode == 38){
+        bar.up();
+    }
+
+    else if(event.keyCode == 40){
+        bar.down();
+    }
+});
+
+self.addEventListener("load", main);
 
 function main() {
     var board = new Board(800, 400);
